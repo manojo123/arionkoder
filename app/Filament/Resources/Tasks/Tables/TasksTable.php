@@ -15,11 +15,11 @@ class TasksTable
     {
         return $table
             ->columns([
+                TextColumn::make('title')
+                    ->searchable(),
                 TextColumn::make('project.title')
                     ->searchable(),
                 TextColumn::make('user.name')
-                    ->searchable(),
-                TextColumn::make('title')
                     ->searchable(),
                 TextColumn::make('priority')
                     ->searchable(),

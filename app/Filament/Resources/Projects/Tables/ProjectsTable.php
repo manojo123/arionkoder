@@ -15,9 +15,9 @@ class ProjectsTable
     {
         return $table
             ->columns([
-                TextColumn::make('organization.name')
-                    ->searchable(),
                 TextColumn::make('title')
+                    ->searchable(),
+                TextColumn::make('organization.name')
                     ->searchable(),
                 TextColumn::make('start_date')
                     ->date()

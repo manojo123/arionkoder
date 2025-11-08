@@ -14,14 +14,14 @@ class TaskForm
     {
         return $schema
             ->components([
+                TextInput::make('title')
+                    ->required(),
                 Select::make('project_id')
                     ->relationship('project', 'title')
                     ->required(),
                 Select::make('user_id')
                     ->relationship('user', 'name')
                     ->label('Assignee')
-                    ->required(),
-                TextInput::make('title')
                     ->required(),
                 Textarea::make('description')
                     ->columnSpanFull(),

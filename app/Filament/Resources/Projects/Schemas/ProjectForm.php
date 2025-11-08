@@ -14,10 +14,10 @@ class ProjectForm
     {
         return $schema
             ->components([
+                TextInput::make('title')
+                    ->required(),
                 Select::make('organization_id')
                     ->relationship('organization', 'name')
-                    ->required(),
-                TextInput::make('title')
                     ->required(),
                 Textarea::make('description')
                     ->columnSpanFull(),
