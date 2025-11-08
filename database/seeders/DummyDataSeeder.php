@@ -30,10 +30,27 @@ class DummyDataSeeder extends Seeder
             'status' => 'Planning',
         ]);
 
-        $project->tasks()->create([
+        $task = $project->tasks()->create([
             'title' => 'AK-0001 - Finish Script',
             'user_id' => User::role('member')->first()->id,
             'description' => 'We need to finish the script for the project',
+            'priority' => 'High',
+            'status' => 'To Do',
+            'due_date' => '2025-11-10',
+            'created_by' => User::role('admin')->first()->id,
+            'modified_by' => User::role('admin')->first()->id,
+        ]);
+
+        $task->comments()->create([
+            'comment' => 'We need to finish the script for the project',
+            'user_id' => User::role('member')->first()->id,
+        ]);
+
+        $task->childTasks()->create([
+            'user_id' => User::role('member')->first()->id,
+            'project_id' => $project->id,
+            'title' => 'AK-0002 - My Child Task',
+            'description' => 'I am a child task of the parent task AK-0001',
             'priority' => 'High',
             'status' => 'To Do',
             'due_date' => '2025-11-10',

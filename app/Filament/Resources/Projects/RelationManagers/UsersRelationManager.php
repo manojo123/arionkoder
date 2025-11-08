@@ -10,6 +10,7 @@ use Filament\Actions\DetachAction;
 use Filament\Actions\DetachBulkAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class UsersRelationManager extends RelationManager
@@ -21,6 +22,18 @@ class UsersRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->columns([
+                TextColumn::make('name')
+                    ->label('Name')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('email')
+                    ->label('Email')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('pivot.role')
+                    ->label('Project Role'),
+            ])
             ->headerActions([
                 CreateAction::make(),
                 AttachAction::make()

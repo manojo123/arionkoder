@@ -16,6 +16,8 @@ class TaskInfolist
                     ->label('Project'),
                 TextEntry::make('user.name')
                     ->label('Assignee'),
+                TextEntry::make('parentTask.title')
+                    ->label('Parent Task'),
                 TextEntry::make('title'),
                 TextEntry::make('description')
                     ->placeholder('-')

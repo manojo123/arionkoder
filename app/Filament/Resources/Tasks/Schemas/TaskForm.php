@@ -19,6 +19,9 @@ class TaskForm
                 Select::make('project_id')
                     ->relationship('project', 'title')
                     ->required(),
+                Select::make('task_id')
+                    ->relationship('parentTask', 'title')
+                    ->label('Parent Task'),
                 Select::make('user_id')
                     ->relationship('user', 'name')
                     ->label('Assignee')

@@ -8,6 +8,7 @@ use App\Filament\Resources\Users\Pages\ListUsers;
 use App\Filament\Resources\Users\Pages\ViewUser;
 use App\Filament\Resources\Users\RelationManagers\OrganizationsRelationManager;
 use App\Filament\Resources\Users\RelationManagers\ProjectsRelationManager;
+use App\Filament\Resources\Users\RelationManagers\RolesRelationManager;
 use App\Filament\Resources\Users\Schemas\UserForm;
 use App\Filament\Resources\Users\Schemas\UserInfolist;
 use App\Filament\Resources\Users\Tables\UsersTable;
@@ -17,6 +18,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class UserResource extends Resource
 {
@@ -46,6 +48,7 @@ class UserResource extends Resource
         return [
             'organizations' => OrganizationsRelationManager::class,
             'projects' => ProjectsRelationManager::class,
+            'roles' => RolesRelationManager::class,
         ];
     }
 
