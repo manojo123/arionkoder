@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\ActivityLog;
+use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,26 +26,6 @@ class Task extends Model
         'created_by',
         'modified_by',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($task) {
-            if (!$task->created_by) {
-                $task->created_by = auth()->id();
-            }
-            if (!$task->modified_by) {
-                $task->modified_by = auth()->id();
-            }
-        });
-
-        static::updating(function ($task) {
-            if (!$task->modified_by) {
-                $task->modified_by = auth()->id();
-            }
-        });
-    }
 
     public function project(): BelongsTo
     {
