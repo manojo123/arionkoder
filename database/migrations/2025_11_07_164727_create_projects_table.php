@@ -18,8 +18,9 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->string('status')->default('Planning');
+            $table->string('status')->default('Planning')->comment('Planning, Active, On Hold, Completed');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

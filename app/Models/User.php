@@ -66,5 +66,10 @@ class User extends Authenticatable
             ->withTimestamps();
     }
 
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class);
+    }
+
 
 }

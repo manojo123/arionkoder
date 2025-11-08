@@ -2,6 +2,7 @@
 
 use App\Models\Organization;
 use App\Models\Project;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -31,6 +32,14 @@ test('users_have_many_projects', function () {
     expect($user->projects)->toHaveCount(1);
     expect($project->users)->toHaveCount(1);
     expect($user->projects->first()->pivot->role)->toBe('member');
+});
+
+test('users_have_many_tasks', function () {
+    $user = User::factory()->create();
+    $task = Task::factory()->create(['user_id' => $user->id]);
+
+    expect($user->tasks)->toHaveCount(1);
+    expect($task->user->id)->toBe($user->id);
 });
 
 // ============================================================================
@@ -75,4 +84,46 @@ test('projects belong_to_many_users', function () {
 
     expect($project->users)->toHaveCount(1);
     expect($user->projects)->toHaveCount(1);
+});
+
+test('projects_have_many_tasks', function () {
+    $project = Project::factory()->create();
+    $task = Task::factory()->create(['project_id' => $project->id]);
+
+    expect($project->tasks)->toHaveCount(1);
+    expect($task->project->id)->toBe($project->id);
+});
+
+// ============================================================================
+// Task Model Relationships
+// ============================================================================
+
+test('tasks_belong_to_a_project', function () {
+    $project = Project::factory()->create();
+    $task = Task::factory()->create(['project_id' => $project->id]);
+
+    expect($task->project->id)->toBe($project->id);
+    expect($project->tasks)->toHaveCount(1);
+});
+
+test('tasks_belong_to_a_user', function () {
+    $user = User::factory()->create();
+    $task = Task::factory()->create(['user_id' => $user->id]);
+
+    expect($task->user->id)->toBe($user->id);
+    expect($user->tasks)->toHaveCount(1);
+});
+
+test('tasks_have_a_created_by_user', function () {
+    $user = User::factory()->create();
+    $task = Task::factory()->create(['created_by' => $user->id]);
+
+    expect($task->createdBy->id)->toBe($user->id);
+});
+
+test('tasks_have_a_modified_by_user', function () {
+    $user = User::factory()->create();
+    $task = Task::factory()->create(['modified_by' => $user->id]);
+
+    expect($task->modifiedBy->id)->toBe($user->id);
 });
