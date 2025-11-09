@@ -11,11 +11,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Kirschbaum\Commentions\Contracts\Commentable;
+use Kirschbaum\Commentions\HasComments;
 
-class Project extends Model
+class Project extends Model implements Commentable
 {
     /** @use HasFactory<\Database\Factories\ProjectFactory> */
-    use HasFactory, SoftDeletes, ActivityLog;
+    use HasFactory, SoftDeletes, ActivityLog, HasComments;
 
     /**
      * The attributes that are mass assignable.

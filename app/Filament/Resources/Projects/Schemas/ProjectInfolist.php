@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources\Projects\Schemas;
 
+use App\Models\User;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
+use Kirschbaum\Commentions\Filament\Infolists\Components\CommentsEntry;
 
 class ProjectInfolist
 {
@@ -30,6 +32,10 @@ class ProjectInfolist
                 TextEntry::make('updated_at')
                     ->dateTime()
                     ->placeholder('-'),
+                CommentsEntry::make('comments')
+                    ->mentionables(User::all())
+                    ->label('Comments')
+                    ->columnSpanFull(),
             ]);
     }
 }
