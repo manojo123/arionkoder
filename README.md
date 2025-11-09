@@ -222,6 +222,11 @@ This will start MySQL, Mailpit (for email testing), and the Laravel application.
 ```
 
 This will create the database schema and seed default roles and users.
+The migrations and seeders by default will create three users for you (username / password):
+
+- **admin:** admin@example.com / password
+- **manager:** manager@example.com / password
+- **member:** member@example.com / password
 
 ### Optional Dummy Data
 To populate the database with sample data for testing purposes:
