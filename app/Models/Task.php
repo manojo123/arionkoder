@@ -73,6 +73,4 @@ class Task extends Model implements Commentable
     {
         return $this->hasMany(Task::class, 'task_id');
     }
-
-
 }

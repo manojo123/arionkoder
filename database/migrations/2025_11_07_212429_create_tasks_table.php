@@ -18,11 +18,11 @@ return new class extends Migration
             $table->foreignId('project_id')->constrained('projects')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('task_id')->nullable()->constrained('tasks');
-            $table->string('title');
+            $table->string('title')->index();
             $table->text('description')->nullable();
-            $table->string('priority')->default(TaskPriority::Low->value)->comment('TaskPriority Enum values');
-            $table->string('status')->default(TaskStatus::Backlog->value)->comment('TaskStatus Enum values');
-            $table->date('due_date')->nullable();
+            $table->string('priority')->default(TaskPriority::Low->value)->comment('TaskPriority Enum values')->index();
+            $table->string('status')->default(TaskStatus::Backlog->value)->comment('TaskStatus Enum values')->index();
+            $table->date('due_date')->nullable()->index();
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('modified_by')->constrained('users');
             $table->timestamps();

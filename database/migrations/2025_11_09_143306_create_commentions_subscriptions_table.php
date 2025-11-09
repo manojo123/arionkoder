@@ -25,5 +25,3 @@ return new class extends Migration
         Schema::dropIfExists(config('commentions.tables.comment_subscriptions', 'comment_subscriptions'));
     }
 };
-
-
