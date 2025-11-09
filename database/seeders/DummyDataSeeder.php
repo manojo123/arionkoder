@@ -2,6 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ProjectStatus;
+use App\Enums\ProjectUserRole;
+use App\Enums\TaskPriority;
+use App\Enums\TaskStatus;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -27,15 +31,15 @@ class DummyDataSeeder extends Seeder
             'description' => 'Project dev description',
             'start_date' => '2025-11-06',
             'end_date' => '2025-11-10',
-            'status' => 'Planning',
+            'status' => ProjectStatus::Planning->value,
         ]);
 
         $task = $project->tasks()->create([
             'title' => 'AK-0001 - Finish Script',
             'user_id' => User::role('member')->first()->id,
             'description' => 'We need to finish the script for the project',
-            'priority' => 'High',
-            'status' => 'To Do',
+            'priority' => TaskPriority::High->value,
+            'status' => TaskStatus::ToDo->value,
             'due_date' => '2025-11-10',
             'created_by' => User::role('admin')->first()->id,
             'modified_by' => User::role('admin')->first()->id,
@@ -51,8 +55,8 @@ class DummyDataSeeder extends Seeder
             'project_id' => $project->id,
             'title' => 'AK-0002 - My Child Task',
             'description' => 'I am a child task of the parent task AK-0001',
-            'priority' => 'High',
-            'status' => 'To Do',
+            'priority' => TaskPriority::High->value,
+            'status' => TaskStatus::ToDo->value,
             'due_date' => '2025-11-10',
             'created_by' => User::role('admin')->first()->id,
             'modified_by' => User::role('admin')->first()->id,
@@ -62,7 +66,7 @@ class DummyDataSeeder extends Seeder
 
         $project->users()->attach(
             User::role('manager')->first()->id,
-            ['role' => 'manager']
+            ['role' => ProjectUserRole::Manager->value]
         );
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ProjectStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,10 +16,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('organization_id')->constrained('organizations')->onDelete('cascade');
             $table->string('title');
-            $table->text('description')->nullable();
+        $table->text('description')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->string('status')->default('Planning')->comment('Planning, Active, On Hold, Completed');
+            $table->string('status')->default(ProjectStatus::Planning->value)->comment('ProjectStatus Enum values');
             $table->timestamps();
             $table->softDeletes();
         });

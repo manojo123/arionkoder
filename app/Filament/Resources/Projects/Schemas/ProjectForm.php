@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Projects\Schemas;
 
+use App\Enums\ProjectStatus;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -23,9 +24,10 @@ class ProjectForm
                     ->columnSpanFull(),
                 DatePicker::make('start_date'),
                 DatePicker::make('end_date'),
-                TextInput::make('status')
+                Select::make('status')
+                    ->options(collect(ProjectStatus::cases())->mapWithKeys(fn ($case) => [$case->value => $case->value]))
                     ->required()
-                    ->default('Planning'),
+                    ->default(ProjectStatus::Planning->value),
             ]);
     }
 }

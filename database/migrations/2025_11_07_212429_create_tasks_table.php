@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\TaskPriority;
+use App\Enums\TaskStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,8 +20,8 @@ return new class extends Migration
             $table->foreignId('task_id')->nullable()->constrained('tasks');
             $table->string('title');
             $table->text('description')->nullable();
-            $table->string('priority')->default('low')->comment('Low, Medium, High, Critical');
-            $table->string('status')->default('pending')->comment('Backlog, To Do, In Progress, Review, Done, Blocked');
+            $table->string('priority')->default(TaskPriority::Low->value)->comment('TaskPriority Enum values');
+            $table->string('status')->default(TaskStatus::Backlog->value)->comment('TaskStatus Enum values');
             $table->date('due_date')->nullable();
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('modified_by')->constrained('users');

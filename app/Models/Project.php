@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\ProjectStatus;
+use App\Enums\ProjectUserRole;
 use App\Traits\ActivityLog;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,6 +30,18 @@ class Project extends Model
         'end_date',
         'status'
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'status' => ProjectStatus::class,
+        ];
+    }
 
     /**
      * Get the organization of the project
@@ -59,7 +73,7 @@ class Project extends Model
      */
     public function manager(): ?User
     {
-        return $this->users()->wherePivot('role', 'manager')->first();
+        return $this->users()->wherePivot('role', ProjectUserRole::Manager->value)->first();
     }
 
     public function tasks(): HasMany

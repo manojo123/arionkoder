@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Tasks\Schemas;
 
+use App\Enums\TaskPriority;
+use App\Enums\TaskStatus;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -28,12 +30,14 @@ class TaskForm
                     ->required(),
                 Textarea::make('description')
                     ->columnSpanFull(),
-                TextInput::make('priority')
+                Select::make('priority')
+                    ->options(collect(TaskPriority::cases())->mapWithKeys(fn ($case) => [$case->value => $case->value]))
                     ->required()
-                    ->default('low'),
-                TextInput::make('status')
+                    ->default(TaskPriority::Low->value),
+                Select::make('status')
+                    ->options(collect(TaskStatus::cases())->mapWithKeys(fn ($case) => [$case->value => $case->value]))
                     ->required()
-                    ->default('pending'),
+                    ->default(TaskStatus::Backlog->value),
                 DatePicker::make('due_date'),
             ]);
     }

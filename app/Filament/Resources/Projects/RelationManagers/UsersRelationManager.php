@@ -2,13 +2,14 @@
 
 namespace App\Filament\Resources\Projects\RelationManagers;
 
+use App\Enums\ProjectUserRole;
 use App\Filament\Resources\Users\UserResource;
 use Filament\Actions\AttachAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DetachAction;
 use Filament\Actions\DetachBulkAction;
-use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -39,7 +40,10 @@ class UsersRelationManager extends RelationManager
                 AttachAction::make()
                     ->schema(fn (AttachAction $action): array => [
                         $action->getRecordSelect(),
-                        TextInput::make('role')->required()->default('member'),
+                        Select::make('role')
+                            ->options(collect(ProjectUserRole::cases())->mapWithKeys(fn ($case) => [$case->value => $case->value]))
+                            ->required()
+                            ->default(ProjectUserRole::Member->value),
                 ]),
             ])
             ->recordActions([

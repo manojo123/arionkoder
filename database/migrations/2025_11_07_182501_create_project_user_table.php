@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ProjectUserRole;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('project_id')->constrained('projects')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('role')->default('member')->comment('member, manager');
+            $table->string('role')->default(ProjectUserRole::Member->value)->comment('ProjectUserRole Enum values');
             $table->timestamps();
         });
     }

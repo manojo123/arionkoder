@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\TaskPriority;
+use App\Enums\TaskStatus;
 use App\Traits\ActivityLog;
 use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,6 +28,19 @@ class Task extends Model
         'created_by',
         'modified_by',
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'priority' => TaskPriority::class,
+            'status' => TaskStatus::class,
+        ];
+    }
 
     public function project(): BelongsTo
     {

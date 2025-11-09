@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ProjectUserRole;
 use App\Models\Organization;
 use App\Models\Project;
 use App\Models\Task;
@@ -28,11 +29,11 @@ test('users_have_many_projects', function () {
     $user = User::factory()->create();
     $project = Project::factory()->create();
 
-    $user->projects()->attach($project, ['role' => 'member']);
+    $user->projects()->attach($project, ['role' => ProjectUserRole::Member->value]);
 
     expect($user->projects)->toHaveCount(1);
     expect($project->users)->toHaveCount(1);
-    expect($user->projects->first()->pivot->role)->toBe('member');
+    expect($user->projects->first()->pivot->role)->toBe(ProjectUserRole::Member->value);
 });
 
 test('users_have_many_tasks', function () {
