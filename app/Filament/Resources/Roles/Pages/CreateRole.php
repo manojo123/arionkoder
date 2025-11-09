@@ -8,4 +8,11 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateRole extends CreateRecord
 {
     protected static string $resource = RoleResource::class;
+
+    public function mount(): void
+    {
+        if (! auth()->user()->hasRole('admin')) {
+            abort(403);
+        }
+    }
 }

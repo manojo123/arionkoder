@@ -42,12 +42,15 @@ class ActivitiesTable
                 //
             ])
             ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
+                ViewAction::make()
+                    ->authorize(fn () => auth()->user()->hasRole('admin')),
+                EditAction::make()
+                    ->authorize(fn () => auth()->user()->hasRole('admin')),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->authorize(fn () => auth()->user()->hasRole('admin')),
                 ]),
             ]);
     }

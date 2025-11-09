@@ -44,7 +44,7 @@ class UsersRelationManager extends RelationManager
                             ->options(collect(ProjectUserRole::cases())->mapWithKeys(fn ($case) => [$case->value => $case->value]))
                             ->required()
                             ->default(ProjectUserRole::Member->value),
-                ]),
+                    ]),
             ])
             ->recordActions([
                 DetachAction::make(),

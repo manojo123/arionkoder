@@ -1,14 +1,17 @@
 <?php
+
 namespace App\Filament\Resources\Organizations\Api\Handlers;
 
-use Illuminate\Http\Request;
-use Rupadana\ApiService\Http\Handlers;
-use App\Filament\Resources\Organizations\OrganizationResource;
 use App\Filament\Resources\Organizations\Api\Requests\UpdateOrganizationRequest;
+use App\Filament\Resources\Organizations\OrganizationResource;
+use Rupadana\ApiService\Http\Handlers;
 
-class UpdateHandler extends Handlers {
-    public static string | null $uri = '/{id}';
-    public static string | null $resource = OrganizationResource::class;
+class UpdateHandler extends Handlers
+{
+    public static ?string $uri = '/{id}';
+
+    public static ?string $resource = OrganizationResource::class;
+
     protected static string $permission = 'Update:Organization';
 
     public static function getMethod()
@@ -16,15 +19,14 @@ class UpdateHandler extends Handlers {
         return Handlers::PUT;
     }
 
-    public static function getModel() {
+    public static function getModel()
+    {
         return static::$resource::getModel();
     }
-
 
     /**
      * Update Organization
      *
-     * @param UpdateOrganizationRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function handler(UpdateOrganizationRequest $request)
@@ -33,12 +35,14 @@ class UpdateHandler extends Handlers {
 
         $model = static::getModel()::find($id);
 
-        if (!$model) return static::sendNotFoundResponse();
+        if (! $model) {
+            return static::sendNotFoundResponse();
+        }
 
         $model->fill($request->all());
 
         $model->save();
 
-        return static::sendSuccessResponse($model, "Successfully Update Resource");
+        return static::sendSuccessResponse($model, 'Successfully Update Resource');
     }
 }

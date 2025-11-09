@@ -1,14 +1,17 @@
 <?php
+
 namespace App\Filament\Resources\Tasks\Api\Handlers;
 
-use Illuminate\Http\Request;
-use Rupadana\ApiService\Http\Handlers;
-use App\Filament\Resources\Tasks\TaskResource;
 use App\Filament\Resources\Tasks\Api\Requests\CreateTaskRequest;
+use App\Filament\Resources\Tasks\TaskResource;
+use Rupadana\ApiService\Http\Handlers;
 
-class CreateHandler extends Handlers {
-    public static string | null $uri = '/';
-    public static string | null $resource = TaskResource::class;
+class CreateHandler extends Handlers
+{
+    public static ?string $uri = '/';
+
+    public static ?string $resource = TaskResource::class;
+
     protected static string $permission = 'Create:Task';
 
     public static function getMethod()
@@ -16,14 +19,14 @@ class CreateHandler extends Handlers {
         return Handlers::POST;
     }
 
-    public static function getModel() {
+    public static function getModel()
+    {
         return static::$resource::getModel();
     }
 
     /**
      * Create Task
      *
-     * @param CreateTaskRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function handler(CreateTaskRequest $request)
@@ -34,6 +37,6 @@ class CreateHandler extends Handlers {
 
         $model->save();
 
-        return static::sendSuccessResponse($model, "Successfully Create Resource");
+        return static::sendSuccessResponse($model, 'Successfully Create Resource');
     }
 }

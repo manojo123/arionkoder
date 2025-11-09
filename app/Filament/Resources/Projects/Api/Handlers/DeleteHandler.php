@@ -1,13 +1,17 @@
 <?php
+
 namespace App\Filament\Resources\Projects\Api\Handlers;
 
+use App\Filament\Resources\Projects\ProjectResource;
 use Illuminate\Http\Request;
 use Rupadana\ApiService\Http\Handlers;
-use App\Filament\Resources\Projects\ProjectResource;
 
-class DeleteHandler extends Handlers {
-    public static string | null $uri = '/{id}';
-    public static string | null $resource = ProjectResource::class;
+class DeleteHandler extends Handlers
+{
+    public static ?string $uri = '/{id}';
+
+    public static ?string $resource = ProjectResource::class;
+
     protected static string $permission = 'Delete:Project';
 
     public static function getMethod()
@@ -15,14 +19,14 @@ class DeleteHandler extends Handlers {
         return Handlers::DELETE;
     }
 
-    public static function getModel() {
+    public static function getModel()
+    {
         return static::$resource::getModel();
     }
 
     /**
      * Delete Project
      *
-     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function handler(Request $request)
@@ -31,10 +35,12 @@ class DeleteHandler extends Handlers {
 
         $model = static::getModel()::find($id);
 
-        if (!$model) return static::sendNotFoundResponse();
+        if (! $model) {
+            return static::sendNotFoundResponse();
+        }
 
         $model->delete();
 
-        return static::sendSuccessResponse($model, "Successfully Delete Resource");
+        return static::sendSuccessResponse($model, 'Successfully Delete Resource');
     }
 }

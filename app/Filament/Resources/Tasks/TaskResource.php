@@ -25,6 +25,16 @@ class TaskResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('viewAny', Task::class);
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()->can('create', Task::class);
+    }
+
     public static function form(Schema $schema): Schema
     {
         return TaskForm::configure($schema);

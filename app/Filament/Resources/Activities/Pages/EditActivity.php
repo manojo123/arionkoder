@@ -11,11 +11,22 @@ class EditActivity extends EditRecord
 {
     protected static string $resource = ActivityResource::class;
 
+    public function mount(int|string $record): void
+    {
+        parent::mount($record);
+
+        if (! auth()->user()->hasRole('admin')) {
+            abort(403);
+        }
+    }
+
     protected function getHeaderActions(): array
     {
         return [
-            ViewAction::make(),
-            DeleteAction::make(),
+            ViewAction::make()
+                ->authorize(fn () => auth()->user()->hasRole('admin')),
+            DeleteAction::make()
+                ->authorize(fn () => auth()->user()->hasRole('admin')),
         ];
     }
 }

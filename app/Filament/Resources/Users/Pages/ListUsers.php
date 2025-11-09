@@ -13,7 +13,8 @@ class ListUsers extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+                ->authorize(fn () => auth()->user()->can('create', \App\Models\User::class)),
         ];
     }
 }

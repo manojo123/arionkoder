@@ -42,7 +42,7 @@ class ProjectsRelationManager extends RelationManager
                     ->label('End Date')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('status')
+                TextColumn::make('status'),
             ])
             ->headerActions([
                 CreateAction::make(),
@@ -53,7 +53,7 @@ class ProjectsRelationManager extends RelationManager
                             ->options(collect(ProjectUserRole::cases())->mapWithKeys(fn ($case) => [$case->value => $case->value]))
                             ->required()
                             ->default(ProjectUserRole::Member->value),
-                ]),
+                    ]),
             ])
             ->recordActions([
                 DetachAction::make(),

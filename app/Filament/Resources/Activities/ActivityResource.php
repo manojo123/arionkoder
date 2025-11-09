@@ -27,6 +27,16 @@ class ActivityResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'log_name';
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->hasRole('admin');
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()->hasRole('admin');
+    }
+
     public static function form(Schema $schema): Schema
     {
         return ActivityForm::configure($schema);

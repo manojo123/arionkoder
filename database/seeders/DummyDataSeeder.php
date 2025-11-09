@@ -59,9 +59,15 @@ class DummyDataSeeder extends Seeder
 
         $organization->users()->sync(User::all()->pluck('id'));
 
-        $project->users()->attach(
-            User::role('manager')->first()->id,
-            ['role' => ProjectUserRole::Manager->value]
+        $project->users()->sync(
+            [
+                User::role('manager')->first()->id => [
+                    'role' => ProjectUserRole::Manager->value
+                ],
+                User::role('member')->first()->id => [
+                    'role' => ProjectUserRole::Member->value
+                ]
+            ]
         );
     }
 }

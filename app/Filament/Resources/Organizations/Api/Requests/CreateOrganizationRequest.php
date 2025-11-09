@@ -22,11 +22,11 @@ class CreateOrganizationRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'name' => 'required',
-			'email' => 'required',
-			'address' => 'required',
-			'phone' => 'required',
-			'description' => 'required|string'
-		];
+            'name' => 'required',
+            'email' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'description' => 'required|string',
+        ];
     }
 }

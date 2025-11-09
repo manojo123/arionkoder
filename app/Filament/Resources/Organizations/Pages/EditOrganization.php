@@ -11,11 +11,22 @@ class EditOrganization extends EditRecord
 {
     protected static string $resource = OrganizationResource::class;
 
+    public function mount(int|string $record): void
+    {
+        parent::mount($record);
+
+        if (! auth()->user()->can('update', $this->getRecord())) {
+            abort(403);
+        }
+    }
+
     protected function getHeaderActions(): array
     {
         return [
-            ViewAction::make(),
-            DeleteAction::make(),
+            ViewAction::make()
+                ->authorize(fn () => auth()->user()->can('view', $this->getRecord())),
+            DeleteAction::make()
+                ->authorize(fn () => auth()->user()->can('delete', $this->getRecord())),
         ];
     }
 }

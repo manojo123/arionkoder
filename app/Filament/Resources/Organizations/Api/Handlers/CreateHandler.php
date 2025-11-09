@@ -1,14 +1,17 @@
 <?php
+
 namespace App\Filament\Resources\Organizations\Api\Handlers;
 
-use Illuminate\Http\Request;
-use Rupadana\ApiService\Http\Handlers;
-use App\Filament\Resources\Organizations\OrganizationResource;
 use App\Filament\Resources\Organizations\Api\Requests\CreateOrganizationRequest;
+use App\Filament\Resources\Organizations\OrganizationResource;
+use Rupadana\ApiService\Http\Handlers;
 
-class CreateHandler extends Handlers {
-    public static string | null $uri = '/';
-    public static string | null $resource = OrganizationResource::class;
+class CreateHandler extends Handlers
+{
+    public static ?string $uri = '/';
+
+    public static ?string $resource = OrganizationResource::class;
+
     protected static string $permission = 'Create:Organization';
 
     public static function getMethod()
@@ -16,14 +19,14 @@ class CreateHandler extends Handlers {
         return Handlers::POST;
     }
 
-    public static function getModel() {
+    public static function getModel()
+    {
         return static::$resource::getModel();
     }
 
     /**
      * Create Organization
      *
-     * @param CreateOrganizationRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function handler(CreateOrganizationRequest $request)
@@ -34,6 +37,6 @@ class CreateHandler extends Handlers {
 
         $model->save();
 
-        return static::sendSuccessResponse($model, "Successfully Create Resource");
+        return static::sendSuccessResponse($model, 'Successfully Create Resource');
     }
 }

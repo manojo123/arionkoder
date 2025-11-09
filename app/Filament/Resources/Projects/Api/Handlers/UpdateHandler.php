@@ -1,14 +1,17 @@
 <?php
+
 namespace App\Filament\Resources\Projects\Api\Handlers;
 
-use Illuminate\Http\Request;
-use Rupadana\ApiService\Http\Handlers;
-use App\Filament\Resources\Projects\ProjectResource;
 use App\Filament\Resources\Projects\Api\Requests\UpdateProjectRequest;
+use App\Filament\Resources\Projects\ProjectResource;
+use Rupadana\ApiService\Http\Handlers;
 
-class UpdateHandler extends Handlers {
-    public static string | null $uri = '/{id}';
-    public static string | null $resource = ProjectResource::class;
+class UpdateHandler extends Handlers
+{
+    public static ?string $uri = '/{id}';
+
+    public static ?string $resource = ProjectResource::class;
+
     protected static string $permission = 'Update:Project';
 
     public static function getMethod()
@@ -16,15 +19,14 @@ class UpdateHandler extends Handlers {
         return Handlers::PUT;
     }
 
-    public static function getModel() {
+    public static function getModel()
+    {
         return static::$resource::getModel();
     }
-
 
     /**
      * Update Project
      *
-     * @param UpdateProjectRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function handler(UpdateProjectRequest $request)
@@ -33,12 +35,14 @@ class UpdateHandler extends Handlers {
 
         $model = static::getModel()::find($id);
 
-        if (!$model) return static::sendNotFoundResponse();
+        if (! $model) {
+            return static::sendNotFoundResponse();
+        }
 
         $model->fill($request->all());
 
         $model->save();
 
-        return static::sendSuccessResponse($model, "Successfully Update Resource");
+        return static::sendSuccessResponse($model, 'Successfully Update Resource');
     }
 }

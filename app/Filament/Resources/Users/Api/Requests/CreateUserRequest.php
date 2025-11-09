@@ -22,14 +22,14 @@ class CreateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'name' => 'required',
-			'email' => 'required',
-			'email_verified_at' => 'required',
-			'password' => 'required',
-			'two_factor_secret' => 'required|string',
-			'two_factor_recovery_codes' => 'required|string',
-			'two_factor_confirmed_at' => 'required',
-			'remember_token' => 'required'
-		];
+            'name' => 'required',
+            'email' => 'required',
+            'email_verified_at' => 'required',
+            'password' => 'required',
+            'two_factor_secret' => 'required|string',
+            'two_factor_recovery_codes' => 'required|string',
+            'two_factor_confirmed_at' => 'required',
+            'remember_token' => 'required',
+        ];
     }
 }

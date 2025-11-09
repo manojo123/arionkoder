@@ -4,7 +4,6 @@ namespace App\Filament\Resources\Activities\Schemas;
 
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
-use ValentinMorice\FilamentJsonColumn\JsonColumn;
 use ValentinMorice\FilamentJsonColumn\JsonInfolist;
 
 class ActivityInfolist

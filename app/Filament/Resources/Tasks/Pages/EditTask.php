@@ -15,14 +15,27 @@ class EditTask extends EditRecord
     protected static string $resource = TaskResource::class;
 
     protected ?string $taskTitle = null;
+
     protected ?string $projectTitle = null;
+
     protected $projectManager = null;
+
+    public function mount(int|string $record): void
+    {
+        parent::mount($record);
+
+        if (! auth()->user()->can('update', $this->getRecord())) {
+            abort(403);
+        }
+    }
 
     protected function getHeaderActions(): array
     {
         return [
-            ViewAction::make(),
+            ViewAction::make()
+                ->authorize(fn () => auth()->user()->can('view', $this->getRecord())),
             DeleteAction::make()
+                ->authorize(fn () => auth()->user()->can('delete', $this->getRecord()))
                 ->before(function () {
                     $this->taskTitle = $this->record->title;
                     $this->projectTitle = $this->record->project?->title;

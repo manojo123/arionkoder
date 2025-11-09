@@ -76,6 +76,7 @@ The application leverages Filament's built-in authentication and authorization s
 - Implement metrics dashboard on the homepage
 - Add Kanban-style task board in Project View
 - Using Laravel Echo for real time notifications
+- Add slugs for resources instead of using ID in the URL
 
 ## Challenges you encountered and how you overcame them
 

@@ -1,15 +1,15 @@
 <?php
+
 namespace App\Filament\Resources\Tasks\Api\Transformers;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Task;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @property Task $resource
  */
 class TaskTransformer extends JsonResource
 {
-
     /**
      * Transform the resource into an array.
      *
