@@ -10,6 +10,7 @@ use Filament\Actions\DetachAction;
 use Filament\Actions\DetachBulkAction;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Table;
+use Kirschbaum\Commentions\Filament\Actions\CommentsAction;
 
 class TasksRelationManager extends RelationManager
 {
@@ -23,6 +24,7 @@ class TasksRelationManager extends RelationManager
             ->headerActions([
                 CreateAction::make(),
                 AttachAction::make(),
+                CommentsAction::make(),
             ])
             ->recordActions([
                 DetachAction::make(),
