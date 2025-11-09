@@ -12,12 +12,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Kirschbaum\Commentions\Contracts\Commenter;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements Commenter
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, HasRoles, Notifiable, TwoFactorAuthenticatable, ActivityLog;
+    use HasApiTokens, HasFactory, HasRoles, Notifiable, TwoFactorAuthenticatable, ActivityLog;
 
     /**
      * The attributes that are mass assignable.
