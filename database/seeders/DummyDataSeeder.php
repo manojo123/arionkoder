@@ -45,11 +45,6 @@ class DummyDataSeeder extends Seeder
             'modified_by' => User::role('admin')->first()->id,
         ]);
 
-        $task->comments()->create([
-            'comment' => 'We need to finish the script for the project',
-            'user_id' => User::role('member')->first()->id,
-        ]);
-
         $task->childTasks()->create([
             'user_id' => User::role('member')->first()->id,
             'project_id' => $project->id,

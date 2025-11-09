@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Tasks\Schemas;
 use App\Models\Task;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
+use Kirschbaum\Commentions\Filament\Infolists\Components\CommentsEntry;
 
 class TaskInfolist
 {
@@ -40,6 +41,9 @@ class TaskInfolist
                 TextEntry::make('deleted_at')
                     ->dateTime()
                     ->visible(fn (Task $record): bool => $record->trashed()),
+                CommentsEntry::make('comments')
+                    ->label('Comments')
+                    ->columnSpanFull(),
             ]);
     }
 }

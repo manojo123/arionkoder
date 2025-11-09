@@ -4,7 +4,6 @@ use App\Enums\ProjectUserRole;
 use App\Models\Organization;
 use App\Models\Project;
 use App\Models\Task;
-use App\Models\TaskComment;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -42,14 +41,6 @@ test('users_have_many_tasks', function () {
 
     expect($user->tasks)->toHaveCount(1);
     expect($task->user->id)->toBe($user->id);
-});
-
-test('users_have_many_comments', function () {
-    $user = User::factory()->create();
-    $comment = TaskComment::factory()->create(['user_id' => $user->id]);
-
-    expect($user->comments)->toHaveCount(1);
-    expect($comment->user->id)->toBe($user->id);
 });
 
 // ============================================================================
@@ -138,14 +129,6 @@ test('tasks_have_a_modified_by_user', function () {
     expect($task->modifiedBy->id)->toBe($user->id);
 });
 
-test('tasks_have_many_comments', function () {
-    $task = Task::factory()->create();
-    $comment = TaskComment::factory()->create(['task_id' => $task->id]);
-
-    expect($task->comments)->toHaveCount(1);
-    expect($comment->task->id)->toBe($task->id);
-});
-
 test('tasks_have_a_parent_task', function () {
     $parentTask = Task::factory()->create();
     $childTask = Task::factory()->create(['task_id' => $parentTask->id]);
@@ -160,24 +143,4 @@ test('tasks_have_many_child_tasks', function () {
 
     expect($parentTask->childTasks)->toHaveCount(1);
     expect($childTask->parentTask->id)->toBe($parentTask->id);
-});
-
-// ============================================================================
-// Task Comment Model Relationships
-// ============================================================================
-
-test('task_comments_belong_to_a_task', function () {
-    $task = Task::factory()->create();
-    $comment = TaskComment::factory()->create(['task_id' => $task->id]);
-
-    expect($comment->task->id)->toBe($task->id);
-    expect($task->comments)->toHaveCount(1);
-});
-
-test('task_comments_belong_to_a_user', function () {
-    $user = User::factory()->create();
-    $comment = TaskComment::factory()->create(['user_id' => $user->id]);
-
-    expect($comment->user->id)->toBe($user->id);
-    expect($user->comments)->toHaveCount(1);
 });
